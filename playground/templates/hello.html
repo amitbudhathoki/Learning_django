@@ -13,5 +13,11 @@
     <h1>Hello world hello hello</h1>
     {% endif %}
 
+    <ul>
+        {% for product in products %}
+        <li>{{ product.title }}</li>
+        {% endfor %}
+    </ul>
+
 </body>
 </html>
