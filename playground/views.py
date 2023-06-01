@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
+from django.db.models import Q, F
 from store.models import Product
 
 
@@ -10,8 +10,9 @@ def say_hello(request):
 # transform     
 #send email
    #keyword = value
-   queryset = Product.objects.filter(Q(inventory__lt=10) | ~Q(umit_price__lt=20))
+   product = Product.objects.order_by('unit_price', '-title')[0]
+   product = Product.objects.earliest('unit_price')
    #for product in product:
       #print (product)
 
-   return render(request,'hello.html', { 'name': 'AMIT', 'products': list(queryset)}) #parameters (request object ,name of template, put mapping words to change in page)
+   return render(request,'hello.html', { 'name': 'AMIT', 'product': product}) #parameters (request object ,name of template, put mapping words to change in page)
