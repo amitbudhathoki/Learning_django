@@ -4,7 +4,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Value, F, Func, Count, ExpressionWrapper,DecimalField
 from django.db.models.functions import Concat
 from store.models import Product, OrderItem, Order, Customer
-
+from django.contrib.contenttypes.models import ContentType
+from store.models import Product
+from tags.models import TaggedItem
 
 def say_hello(request):
 #pull data from db
@@ -34,13 +36,16 @@ def say_hello(request):
    #queryset = Customer.objects.annotate(
    #   #concat
    #   full_name = Concat('first_name',Value(' '),'last_name'), function='CONCAT')
-   discounted_price = ExpressionWrapper(F('unit_price') * 0.8, output_field=DecimalField())
-      
-   queryset = Product.objects.annotate(
-      discounted_price = discounted_price
-   )
    
    
    
-   return render(request,'hello.html', { 'name': 'AMIT', 'result': list(queryset)}) #parameters (request object ,name of template, put mapping words to change in page)
+   #discounted_price = ExpressionWrapper(F('unit_price') * 0.8, output_field=DecimalField())
+   #   
+   #queryset = Product.objects.annotate(
+   #   discounted_price = discounted_price
+   #)
+   
+   TaggedItem.objects.get_tags_for(Product, 1)
+   
+   return render(request,'hello.html', { 'name': 'AMIT', 'tags': list(queryset)}) #parameters (request object ,name of template, put mapping words to change in page)
  
