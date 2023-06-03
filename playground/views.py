@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import transaction, connection
 from django.db.models import Value, F, Func, Count, ExpressionWrapper,DecimalField
 from django.db.models.functions import Concat
 from store.models import Product, OrderItem, Order, Customer, Collection
 from django.contrib.contenttypes.models import ContentType
 from store.models import Product
 from tags.models import TaggedItem
+
+
 
 def say_hello(request):
 #pull data from db
@@ -45,12 +48,23 @@ def say_hello(request):
    #   discounted_price = discounted_price
    #)
 
-   # creating objects 
-   # collection = collection.objects.get(pk=11)
-   # collection.featured_product = None
-   # collection.save()
+#multiple transacitons 
 
-   Collection.objects.filter(pk=11).update(featured_product = None)
+   # with transaction.atomic():
 
-   return render(request,'hello.html', { 'name': 'AMIT'}) #, 'tags': list(queryset)}) #parameters (request object ,name of template, put mapping words to change in page)
+   #    order = Order()
+   #    order.customer_id = 1
+   #    order.save()
+
+   #    item = OrderItem()
+   #    item.order = order
+   #    item.product_id = 1
+   #    item.quantity = 1
+   #    item.unit_price = 10
+   #    item.save()
+
+   with connection.cursor() as cursor:
+      cursor.execute()
+
+   return render(request,'hello.html', { 'name': 'AMIT'}) # , 'result': list(queryset)})#parameters (request object ,name of template, put mapping words to change in page)
  
