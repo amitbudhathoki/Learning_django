@@ -8,6 +8,3 @@ from rest_framework.decorators import api_view
 def product_list(request):
     return HttpResponse('ok')
 
-@api_view()
-def product_list(request):
-    return HttpResponse('ok')
