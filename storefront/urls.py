@@ -26,5 +26,7 @@ urlpatterns = [
     path('store/', include('store.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 
-   # path('__debug__/', include(debug_toolbar.urls)),
+    #path('__debug__/', include(debug_toolbar.urls)),
+    #path('store/', include('store.urls')),
+
 ]
