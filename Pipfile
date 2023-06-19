@@ -5,10 +5,11 @@ name = "pypi"
 
 [packages]
 django = "*"
+djangorestframework  = "*"
 django-debug-toolbar = "*"
 mysqlclient = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.11.3"
+python_version = "3.11.4"
